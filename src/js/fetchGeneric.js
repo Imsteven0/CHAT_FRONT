@@ -16,6 +16,6 @@ export async function executeRequest(url, method, data = null, params = null) {
       return response;
     })
     .catch((error) => {
-      console.log(error);
+      //console.log(error);
     });
 }
