@@ -1,9 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Chat from "./Chat";
 import io from "socket.io-client";
+import {useAuth} from '../../hooks/useAuth'
+import {Navigate} from "react-router-dom";
+import {compareDates} from '../../helpers/compareDates'
+
+import {getConversationByIdUser, getSpecificMessage} from '../../services/conversation'
 
 const Home = () => {
-    const idUser = localStorage.getItem("idUser");
+    const {user, idUser, expiresIn, token, logout} = useAuth()
+
     const [data, setData] = useState([]);
     const [dataMessages, setDataMessages] = useState(null);
     const [idConversation, setIdConversation] = useState(null);
@@ -47,10 +53,8 @@ const Home = () => {
         const result = data.find((item) => item._id === message.conversationId);
         if (result) {
             try {
-                const response = await fetch(
-                    `http://127.0.0.1:8000/Message/listMessagesById/${message._id}`
-                );
-                if (response.ok) {
+                let response = await getSpecificMessage(message._id);
+                if (response.status === 200) {
                     const jsonData = await response.json();
                     const newData = data.map((item) => {
                         if (item._id === message.conversationId) {
@@ -74,10 +78,8 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    `http://127.0.0.1:8000/Conversation/listConversationById/${idUser}`
-                );
-                if (response.ok) {
+                const response = await getConversationByIdUser(idUser);
+                if (response.status === 200) {
                     const jsonData = await response.json();
                     setData(jsonData);
                 } else {
@@ -90,8 +92,12 @@ const Home = () => {
         fetchData();
     }, []);
 
-    const handleClick = (IdConversation) => {
+    const openConversation = (IdConversation) => {
+        // Se activan los estilos para el chat activo.
+        setActiveChatStyle(IdConversation);
+        // Se setea id el de la conversacio global.
         setIdConversation(IdConversation);
+
         const conversation = data.find((item) => item._id === IdConversation);
         const userConversation = conversation.users.find((item) => item._id !== idUser)
         if (conversation) {
@@ -101,6 +107,18 @@ const Home = () => {
             setUserChat([userConversation])
         }
     };
+
+    /* Su funcion se basa en poner un estado activo a una conversacion*/
+    const setActiveChatStyle = (IdConversation) => {
+        data.forEach((obj, index) => {
+            obj.activeChatStyle = obj._id === IdConversation ? 1 : 0;
+        })
+    }
+
+    const setStyleChat = (_idAux) => {
+        const chat = data.find((item) => item._id === _idAux);
+        return chat.activeChatStyle === 1 ? 'flex justify-between gap-x-6 p-2 bg-[#2E343D] rounded-xl' : 'flex justify-between gap-x-6 p-2 rounded-xl';
+    }
 
     const formatTime = (time) => {
         const date = new Date(time);
@@ -138,6 +156,9 @@ const Home = () => {
         return null;
     };
 
+    if (!compareDates(expiresIn)) logout()
+    if (!user) return <Navigate to="/login"/>
+
     return (
         <div className="h-screen w-screen py-4 bg-[#131313] flex flex-col">
             <div className="mx-16 grid grid-cols-1 h-full gap-x-4 gap-y-16 lg:grid-cols-3">
@@ -166,8 +187,8 @@ const Home = () => {
                             {data.map((person) => (
                                 <li
                                     key={person._id}
-                                    className="flex justify-between gap-x-6 py-2"
-                                    onClick={() => handleClick(person._id)}
+                                    className={setStyleChat(person._id)}
+                                    onClick={() => openConversation(person._id)}
                                 >
                                     <div className="flex gap-x-4">
                                         <img

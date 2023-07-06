@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 
+import {newMessage} from '../../services/conversation'
+
 const Chat = ({
                   dataMessages,
                   idUser,
@@ -26,20 +28,10 @@ const Chat = ({
                     IdConversation: idConversation,
                     UserIdSender: idUser,
                 };
-                //console.log(jsonNewMessage);
                 try {
-                    const response = await fetch(
-                        "http://127.0.0.1:8000/Message/newMessage",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(jsonNewMessage),
-                        }
-                    );
-                    const jsonData = await response.json();
+                    let response = await newMessage(jsonNewMessage);
                     if (response.status === 200) {
+                        const jsonData = await response.json();
                         setMessage("");
                         socket.emit("newMessage", {
                             conversationId: idConversation,
@@ -84,13 +76,20 @@ const Chat = ({
                     <div className="flex flex-col gap-x-4">
                         <div className="flex gap-x-4 justify-between p-1">
                             <p className="flex text-xs font-semibold text-white">
-                                {userName(message.senderId)}
-                            </p>
-                            <p className="flex text-xs font-semibold text-white">
                                 <time dateTime={message.createdAt}>
                                     {formatTime(message.createdAt)}
                                 </time>
                             </p>
+                            <div className="flex gap-3">
+                                <p className="flex text-xs font-semibold text-white">
+                                    {userName(message.senderId)}
+                                </p>
+                                <img
+                                    className="h-6 w-6 rounded-full"
+                                    src={userPicture(message.senderId)}
+                                    alt=""
+                                />
+                            </div>
                         </div>
                         <div className="min-w-0 flex justify-end max-w-lg p-1 rounded-lg bg-[#6B8AFD]">
                             <p className="text-sm px-2 font-semibold leading-6 text-white">
