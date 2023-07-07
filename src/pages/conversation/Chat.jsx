@@ -75,13 +75,13 @@ const Chat = ({
                 <li className="flex justify-end gap-x-4 p-2 mb-2 rounded-md">
                     <div className="flex flex-col gap-x-4">
                         <div className="flex gap-x-4 justify-between p-1">
-                            <p className="flex text-xs font-semibold text-white">
+                            <p className="flex text-xs font-semibold text-black">
                                 <time dateTime={message.createdAt}>
                                     {formatTime(message.createdAt)}
                                 </time>
                             </p>
                             <div className="flex gap-3">
-                                <p className="flex text-xs font-semibold text-white">
+                                <p className="flex text-xs font-semibold text-black">
                                     {userName(message.senderId)}
                                 </p>
                                 <img
@@ -91,8 +91,8 @@ const Chat = ({
                                 />
                             </div>
                         </div>
-                        <div className="min-w-0 flex justify-end max-w-lg p-1 rounded-lg bg-[#6B8AFD]">
-                            <p className="text-sm px-2 font-semibold leading-6 text-white">
+                        <div className="min-w-0 flex justify-end max-w-lg p-1 rounded-lg bg-[#4784DE]">
+                            <p className="text-xs px-2 font-semibold leading-6 text-black">
                                 {message.body}
                             </p>
                         </div>
@@ -110,18 +110,18 @@ const Chat = ({
                                     src={userPicture(message.senderId)}
                                     alt=""
                                 />
-                                <p className="flex text-xs font-semibold text-white">
+                                <p className="flex text-xs font-semibold text-black">
                                     {userName(message.senderId)}
                                 </p>
                             </div>
-                            <p className="flex text-xs font-semibold text-white">
+                            <p className="flex text-xs font-semibold text-black">
                                 <time dateTime={message.createdAt}>
                                     {formatTime(message.createdAt)}
                                 </time>
                             </p>
                         </div>
-                        <div className="min-w-0 flex-auto max-w-lg p-1 rounded-lg bg-[#2E343D]">
-                            <p className="text-sm px-2 font-semibold leading-6 text-white">
+                        <div className="min-w-0 flex-auto max-w-lg p-1 rounded-lg bg-[#ffff]">
+                            <p className="text-xs px-2 font-semibold leading-6 text-black">
                                 {message.body}
                             </p>
                         </div>
@@ -136,7 +136,7 @@ const Chat = ({
             <ul>
                 {UserChat ? (
                     UserChat.map((user) => (
-                        <li key={user._id} className="flex justify-between gap-x-4 p-2 mb-2 rounded-md bg-[#2E343D]">
+                        <li key={user._id} className="flex justify-between gap-x-4 p-2 mb-2 rounded-md bg-[#ffff]">
                             <div className="flex gap-x-4">
                                 <img
                                     className="h-10 w-10 rounded-full"
@@ -144,25 +144,29 @@ const Chat = ({
                                     alt=""
                                 />
                                 <div className="flex flex-col gap-x-4">
-                                    <p className="flex text-base font-bold text-white">
+                                    <p className="flex text-base font-bold text-black">
                                         {user.name}
                                     </p>
-                                    <p className="flex text-xs font-semibold text-white">
+                                    <p className="flex text-xs font-semibold text-black">
                                         {user.email}
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex justify-end items-center gap-2">
-                                <img
-                                    className="h-7 w-7"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEb0lEQVR4nO2aa4hVVRTHf6ONFZOPEXyVLySolDFotPoypU1i4oOUMlLILEPD0tIvBtGLPvhIIUQRqSRCRUWSRPABKkpk+cXG1EoN8tFjqtHyXY4TG9aBxeLce2fu3L3PmfH84MDcO+ee/9r7rL322mtvyMjIyMjIyMjIyPBJR6AvcC/wADAIqKQdcwfwDLAaqAOuAk0x1x/AHuBt4CHaAUOANcDFHA0udH0PvA5U0Ma4E1gPNOZpnOuUU8BJ4Hfgvzz31gMvAx1oAzwP/B3TCNfQxcAYoHfM78qBwcCLwEbgSswzvpJ4kUrKgY9jjN4JPAaUtfB5XYF5wC/meeekE1PF7cC2mDf+RAmeXSGeo4fIv8BUUsItwFbTeOfCXUqsUwOcVRrXgYmkgBWm8UuKcPfm0h84prRcnKgmQZ4yjV8aQLMP8JPSPOHB25pFd5meIkO2NPPN3y+JjguO3wFHgEdoGfcBF5T2chJ2/dPSIfkYDuzPMc+vLEJ/uokHQwnIXSadfTrPvc4r3o1Jiv6UDllf5NxeJmmzDrzBWKiEDxQw8lN17w1gHfBwiQLlMPXsxlBJUkfgjBKelOfe98xCp9aDPbuUxlsEoMbk6C4DzDXmr6vG3+PJnmeVPYcJwDtK0C1vc7Fb3Tfaoz0uU7ymhlgvPLNDNWxKnmWwnh59o2cX79nhz0rMzce53P+GDAEX8HzzobJpge8A2KiibqcCsSJUVecV1QGrfAp1VULnSQ9TlF1umvVGLyX0G+nhSWXX576Lm01y/ZPnPjc05gOTCcNUZddan0IdpBgRxYDbCuTpLhAOxD9zQy6MflBiVTnueVQ6qCFQvX+lsuk132JblJh707m4G+hJGL5RNj3uW2yeEvuM5KlUKberG3b2LTjUTIWuIJokM5Q9e0OJHlGi00iWA8qW2aFE5yvRownu2NSaablbKOEuEuEj8VkkU44/pGxYFtqAN5R4g5SsQ7JA6butuB6B9ekku7eREV8CtwbSrjE7RXNIiAdVMcJdG2TF6BO3BP9Lae5Jetf4VVPt3eTRE6plKz3SOqt2mmvlxEkifGA64WsPa4DngEtGp1621JfL52uyMgxOmezgNpnANEeidWsYYNLvqKHR35di/jeBhJhtjIu2yWdJMaUlVEl1xz7vkNT/V5nvbSeMIyGGyZ6fNeoy8IUsXUfIMZoK8Z5KGb8TxZO+jfl9o8z1Ueodub0uvtapz1eTPEhRLtmi3jxtzbXbbIO/YP6/WTR7ms6/4rkkX5AKGRYHi2j0RanuxFWV3zf3TjZlO3uGYBQpYBDwEvCJLGB+VcfnGmSffzuwCBhbYJXZ3bi7DXx9TJJ22dO2XKL0iOmE8cYTjppOcIe12l0nHM4T/fuKZ+kpcyTtjN4Fxnx/c6TmQqBCbVDixrx29zdN0EzdOcNS4PKKH427u3xjppTno++3lyA7TS1uzB83nqAbvzMFNUzv2MAXXfva4qnzYukna5Co8ftlW++mYoCsDz66md58Rgat4393ZP+wldK/RQAAAABJRU5ErkJggg=="
-                                    alt=""
-                                />
-                                <img
-                                    className="h-7 w-7"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwklEQVR4nO2WMQrCQBBFn+kslKA3sLCzEUTsPEO8QNwT2YlgwPMIwRPkCOIJRBEiLoN2S2aEefCrWdjPsjPzwXH+gBEw0zZQA1dgLmoDYJJYfWkgB87Ao9UNWET1Mqql0lqaKIC7OLTr2sSLEBmpgIwPK+CQWFN+EICjMOCokQFDveuhB+yBCzDWeoEqap+6HV5vNkCTWEtpovzSx6eu50Rm4SVM/Akz3eHEbLV3R9DeooWFPJFbSFYmMqaZtO04ZngCWM7VpnLKaxAAAAAASUVORK5CYII="
-                                    alt=""
-                                />
+                            <div className="flex ml-auto gap-2.5">
+                                <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                    <img
+                                        className="h-4 w-4"
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII="
+                                        alt=""
+                                    />
+                                </button>
+                                <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                    <img
+                                        className="h-4 w-4"
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVR4nO2WQQqAMBADh75A/ZR9lUg/XW8VYYUi0pNbUBPIqYeELA2BF2MConHsKRyABGxAMWZgtTd3pEr4ysOEe+xbw0D2PkdsiJ+cP21gtJhbJxhwxtowsNABwUzUSWQT7/IN63NEu7l77HdQExY1IWpC1ISoCaM2IdqEaBOiTVh+uwl5Ajscaq8SiXQEyQAAAABJRU5ErkJggg=="
+                                        alt=""
+                                    />
+                                </button>
                             </div>
                         </li>
                     ))
@@ -183,7 +187,7 @@ const Chat = ({
                     name="body_message"
                     type="text"
                     required
-                    className="min-w-0 flex-auto bg-[#202329] px-3.5 py-2 m-2.5 text-white ring-inset sm:text-sm sm:leading-6 resize"
+                    className="min-w-0 flex-auto bg-[#ffff] px-3.5 py-2 m-2.5 text-black ring-inset sm:text-sm sm:leading-6 resize"
                     placeholder="Escribe un mensaje aquí"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

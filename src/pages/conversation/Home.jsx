@@ -117,7 +117,7 @@ const Home = () => {
 
     const setStyleChat = (_idAux) => {
         const chat = data.find((item) => item._id === _idAux);
-        return chat.activeChatStyle === 1 ? 'flex justify-between gap-x-6 p-2 bg-[#2E343D] rounded-xl' : 'flex justify-between gap-x-6 p-2 rounded-xl';
+        return chat.activeChatStyle === 1 ? 'flex justify-between gap-x-6 p-2 bg-[#4784DE] rounded-xl' : 'flex justify-between gap-x-6 p-2 rounded-xl';
     }
 
     const formatTime = (time) => {
@@ -160,30 +160,47 @@ const Home = () => {
     if (!user) return <Navigate to="/login"/>
 
     return (
-        <div className="h-screen w-screen py-4 bg-[#131313] flex flex-col">
+        <div className="h-screen w-screen py-4 bg-[#C8CDD0] flex flex-col">
             <div className="mx-16 grid grid-cols-1 h-full gap-x-4 gap-y-16 lg:grid-cols-3">
-                <div className="lg:col-span-1 p-4 m-1 h-full rounded-xl bg-[#202329] flex-1 overflow-auto">
-                    <div className="relative flex rounded-md mt-auto items-center pb-3">
-                        <input
-                            id="body_message"
-                            name="body_message"
-                            type="text"
-                            required
-                            className="min-w-0 flex-auto pl-11 rounded-md border-0 bg-gray-500 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                            placeholder="Buscar"
+                <div className="lg:col-span-1 p-4 m-1 h-full rounded-xl bg-[#ffff] flex-1 overflow-auto">
+                    <div className="relative flex rounded-md mt-auto items-center pl-2 pb-2 border-b-2">
+                        <img
+                            className="h-11 w-11 rounded-3xl"
+                            src="http://localhost:8000/imgs/steven.jpg"
+                            alt=""
                         />
-                        <button
-                            className="absolute flex-none px-3 py-2.5 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                        >
-                            <img
-                                className="h-7 w-7"
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACNUlEQVR4nO2YzWoUQRDHfxlwyNlEMB51j+IHJu9gfAejuQhBkaCvIHhKvOlJDwFx4wP4ddBNvOailxziNSroQQ+CutFIQQ0URdBNtmtmR/oHzTLL9r+qe6qqqxcymUymzUwAl4DHwAawDfzQT3leBeb0dyNFR53bAXYHGH2gq/MapQSWgZ8DOu6HzFtSndo5Aqw7h34BL4FF4Bwwpc5N6bN8/0p/Z+etAZN1O//OOfEEODXg/NPAMzd/q65FHNJdtPF8/YBaV1z4va4jnJZdDM8OqTerm1BpSk6EcVzLYmVsIZHuNbcpHYJYdTGfkudGW0pscibMq5YqcjaxvhSAqjrtRCT0ZbNDUiojWDM2LkaGj9TzCG4YG2IvKRtGXA6lCGaMjc3U4u+N+FFiOGZsfE0tbstn1GFTunKalG0jLr1N9Bv4GJkD08TnwJs2VqGbxsbD1OJzRlyauQh6xsZ89EksLXFKpDT/Ngkckmdds0NPE2u/MNorBNFx/fvVRLqL7n5xkkCWnLELQ+qdd/eBWwRTuqarr/38QXfeOv8JGKemO/GWu9NKP39mHwlrY96O+0BBDUy6N1FVp552lTN6spb6Oa11vmeqTTU+N7WIUnPC9kn7GX2N+XF1ereJRQgngEcunv/1h9aKqzbibKOLEA7rTaqr/fwXDasPwFttD+b/ckgVo7CIYRkD7rpFPGjjIu7lRYwAY//Dmyj2SOw7tIzCLeIbLaTQnf8O3G7amUwmk2FP/gDxZx8kD3+mqwAAAABJRU5ErkJggg=="
-                                alt=""
-                            />
-                        </button>
+                        <div
+                            className="absolute bottom-0 left-0 transform translate-x-[350%] translate-y-[-70%] bg-[#47DC44] rounded-full w-3 h-3"></div>
+                        <div className="flex flex-col">
+                            <p className="pl-4 text-[#A1A4AF] font-SansCaption text-xs">Good Morning</p>
+                            <p className="pl-4 text-black font-SansCaption text-sm">Steven Araya Gonzalez</p>
+                        </div>
+                        <div className="flex ml-auto gap-2.5">
+                            <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                <img
+                                    className="h-4 w-4"
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAc0lEQVR4nO2UMQqAMAxF3/Gsg3j/wULVQS8Rl05FpGATpeTBX/MgCR+cnzMDJ3AAk6V4ByRnsxRLERerIb5qK6SbVY9AvBn8NhEIT+KkIK1quPSVOACLgnQBBhrQz1fX4mIzxG9sRSzKwYwArDlNGslBiwtYs6fhOILl9QAAAABJRU5ErkJggg=="
+                                    alt=""
+                                />
+                            </button>
+                            <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                <img
+                                    className="h-4 w-4"
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB+klEQVR4nO2aT0sVURiHH+uakRt3GWmgSEqFCCm0EcR1BH6NXKub1Dbhun1kou70C0Q7DQKtlWvBCLmBrVXQRg6cAzL4Z6Zm5n3P+D7wwGyGe36/O3PuPXMGDMMwDMMwjMq5A/R73fGN4RGwCBwDidcdfwS6qTnDwO9zwdM2gefUlE7g5xXhg3vAfWrEC2AFOMwQPngErPsrJloeAKvA3xzB07pzl4EOIvzW9/8j+EW3xVMiYTTn5Z7VPzFMkL3AQQnhg7/8ZKqSFuBLieGDn1HKRAXhg69QyEaFBWyjjJ4KwwefoIhJgQKmUMQngQLcgkoN3wQKcJ+phn2BAtzCSgUN4ESgALdgUsFjgfDB7pv2ByhJ+RIFzAkWMIsCvgoWsCkdvg84FSzg1D9VFmNFMHxwTeqnb15B+OCCH1MlDAA/FIRO+72K26Ed2FUQ9jLd2O6VWcC0gpBiq8RGxo0NaffKmg/GFYTL6lgZBSwoCJbVd2UUsK0gWFa3ig5/yy8/k0h0Y71d9J5+EpldRRYwqCBQXp8VWcCQgkB5dWMujLuRzQFuc7aNgplVECyrbyhp83MS2BF6CHqdJ35sr/1YDcPQw0NgJqfunFrxIceEtkQNaQBvr3mK7F6Lew+0UmNG/HZ681zwpt/ujvrFyH99xug0DMMwDMOgas4Aa7vGSWpr9C0AAAAASUVORK5CYII="
+                                    alt=""
+                                />
+                            </button>
+                            <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                <img
+                                    className="h-4 w-4"
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII="
+                                    alt=""
+                                />
+                            </button>
+                        </div>
                     </div>
                     {data ? (
-                        <ul>
+                        <ul className="mt-1">
                             {data.map((person) => (
                                 <li
                                     key={person._id}
@@ -192,24 +209,28 @@ const Home = () => {
                                 >
                                     <div className="flex gap-x-4">
                                         <img
-                                            className="h-12 w-12 flex-none rounded-full"
+                                            className="h-11 w-11 flex-none rounded-full"
                                             src={GetImage(person)}
                                             alt=""
                                         />
                                         <div className="min-w-0 flex-auto">
-                                            <p className="text-sm font-bold leading-6 text-white">
+                                            <p className="text-sm font-bold leading-6 text-black ">
                                                 {GetName(person)}
                                             </p>
-                                            <p className="mt-1 w-[17rem] truncate text-xs leading-5 text-white">
+                                            <p className="w-[17rem] truncate text-sm leading-5 Roboto text-black">
                                                 {GetFinalMessage(person._id)}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="hidden sm:flex sm:flex-col sm:items-end">
-                                        <p className="mt-4 text-xs leading-5 text-white">
+                                    <div className="flex flex-col items-end truncate relative">
+                                        <p className="text-xs text-black">
                                             <time dateTime={person.lastMessageAt}>
                                                 {formatTime(person.lastMessageAt)}
                                             </time>
+                                            <div
+                                                className="absolute bottom-0 left-0 transform translate-x-[60%] translate-y-[-0%] bg-[#DF6675] rounded-full w-5 h-5">
+                                                <p className="text-white font-bold p-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">1</p>
+                                            </div>
                                         </p>
                                     </div>
                                 </li>
@@ -219,7 +240,7 @@ const Home = () => {
                         <p>Loading data...</p>
                     )}
                 </div>
-                <div className="lg:col-span-2 h-full p-4 m-1 rounded-xl bg-[#202329] flex-1 overflow-auto">
+                <div className="lg:col-span-2 h-full p-4 m-1 rounded-xl bg-[#F1F1F1] flex-1 overflow-auto">
                     {dataMessages ? (
                         <Chat
                             dataMessages={dataMessages}
@@ -232,7 +253,7 @@ const Home = () => {
                             data={data}
                         />
                     ) : (
-                        <p className="text-white">Tus mensajes estan cifrados se extremo a extremo</p>
+                        <p className="text-black">Tus mensajes estan cifrados se extremo a extremo</p>
                     )}
                 </div>
             </div>
