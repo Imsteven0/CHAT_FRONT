@@ -26,7 +26,7 @@ export const AuthProvider = ({children}) => {
         setToken(null)
         setUser(null)
         setExpiresIn(null)
-        navigate('/', {replace: true})
+        navigate('/login', {replace: true})
     }
 
     const value = useMemo(

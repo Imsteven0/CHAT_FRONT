@@ -5,7 +5,6 @@ import {loginFetch} from '../../services/autentication'
 
 export default function LoginForm() {
     const {user, login} = useAuth()
-
     const [email, setEmail] = useState('');
     const [password, SetPassword] = useState('');
 
@@ -21,7 +20,6 @@ export default function LoginForm() {
             }
         }
     }
-
 
     return (
         <>
