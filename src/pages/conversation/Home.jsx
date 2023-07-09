@@ -7,9 +7,11 @@ import {compareDates} from '../../helpers/compareDates'
 
 import {getConversationByIdUser, getSpecificMessage} from '../../services/conversation'
 import UnsetChat from "../unset/UnsetChat";
+import ModalCustom from "../modales/ModalCustom";
 
 const Home = () => {
     const navigate = useNavigate();
+    const [isReady, setIsReady] = useState(false);
     const {user, idUser, expiresIn/*, token*/, logout} = useAuth()
 
     useEffect(() => {
@@ -19,6 +21,7 @@ const Home = () => {
         if (!user) {
             navigate("/login");
         }
+        setIsReady(true);
     }, [expiresIn, logout, user, navigate]);
 
     const [data, setData] = useState([]);
@@ -26,8 +29,12 @@ const Home = () => {
     const [idConversation, setIdConversation] = useState(null);
     const [socket, setSocket] = useState(null);
     const [UserChat, setUserChat] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
+        if (!isReady) {
+            return; // Evita la ejecución de este useEffect hasta que isReady sea true
+        }
         const fetchData = async () => {
             try {
                 const response = await getConversationByIdUser(idUser);
@@ -43,12 +50,15 @@ const Home = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [isReady]);
 
 
     useEffect(() => {
+        if (!isReady) {
+            return; // Evita la ejecución de este useEffect hasta que isReady sea true
+        }
         handleDataChange(data, idConversation);
-    }, [data, idConversation]);
+    }, [data, idConversation, isReady]);
 
     const handleDataChange = (newData, idConversation) => {
         const conversation = newData.find((item) => item._id === idConversation);
@@ -58,6 +68,9 @@ const Home = () => {
     };
 
     useEffect(() => {
+        if (!isReady) {
+            return; // Evita la ejecución de este useEffect hasta que isReady sea true
+        }
         // Connect to the WebSocket server
         const socket = io("http://localhost:8000", {
             path: "/socket.io",
@@ -77,7 +90,7 @@ const Home = () => {
         return () => {
             socket.disconnect();
         };
-    }, [data, dataMessages, idConversation]);
+    }, [data, dataMessages, idConversation, isReady]);
 
     const fetchNewMessage = async (message) => {
         const result = data.find((item) => item._id === message.conversationId);
@@ -169,6 +182,10 @@ const Home = () => {
         return null;
     };
 
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    };
+
     const UserRegisterData = (data) => {
         if (data.length > 0) {
             const user = data[0].users.find((user) => user._id === idUser);
@@ -192,6 +209,7 @@ const Home = () => {
 
             return (
                 <div className="relative flex rounded-md mt-auto items-center pl-2 pb-2 border-b-2">
+                    {modalOpen && <ModalCustom modalOpen={modalOpen} setModalOpen={setModalOpen}/>}
                     <img
                         className="h-11 w-11 rounded-3xl"
                         src={user.image}
@@ -206,7 +224,8 @@ const Home = () => {
                         <p className="pl-4 text-black font-SansCaption text-sm">{user.name}</p>
                     </div>
                     <div className="flex ml-auto gap-2.5">
-                        <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                        <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]"
+                                onClick={toggleModal}>
                             <img
                                 className="h-4 w-4"
                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAc0lEQVR4nO2UMQqAMAxF3/Gsg3j/wULVQS8Rl05FpGATpeTBX/MgCR+cnzMDJ3AAk6V4ByRnsxRLERerIb5qK6SbVY9AvBn8NhEIT+KkIK1quPSVOACLgnQBBhrQz1fX4mIzxG9sRSzKwYwArDlNGslBiwtYs6fhOILl9QAAAABJRU5ErkJggg=="
