@@ -1,7 +1,7 @@
 import {createContext, useContext, useMemo} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useLocalStorage} from './useLocalStorage'
-import {getExpiresIn, getFullName, getIdUser} from '../../../Portafolio-Steven/src/helpers/decoding'
+import {getExpiresIn, getFullName, getIdUser} from '../helpers/decoding'
 
 const AuthContext = createContext()
 

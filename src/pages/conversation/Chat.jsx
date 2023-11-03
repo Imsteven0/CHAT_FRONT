@@ -42,7 +42,6 @@ const Chat = ({
                     console.error("Error making the request:", error);
                 }
             }
-            ;
         }
         fetchDataMessages();
     };
@@ -132,62 +131,64 @@ const Chat = ({
     };
 
     return (
-        <div className="flex flex-col rounded-md">
-            <ul>
-                {UserChat ? (
-                    UserChat.map((user) => (
-                        <li key={user._id} className="flex justify-between gap-x-4 p-2 mb-2 rounded-md bg-[#ffff]">
-                            <div className="flex gap-x-4">
-                                <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={user.image}
-                                    alt=""
-                                />
-                                <div className="flex flex-col gap-x-4">
-                                    <p className="flex text-base font-bold text-black">
-                                        {user.name}
-                                    </p>
-                                    <p className="flex text-xs font-semibold text-black">
-                                        {user.email}
-                                    </p>
+        <div className="flex h-full flex-col rounded-md">
+            <div className="">
+                <ul>
+                    {UserChat ? (
+                        UserChat.map((user) => (
+                            <li key={user._id} className="flex justify-between gap-x-4 p-2 mb-2 rounded-md bg-[#ffff]">
+                                <div className="flex gap-x-4">
+                                    <img
+                                        className="h-10 w-10 rounded-full"
+                                        src={user.image}
+                                        alt=""
+                                    />
+                                    <div className="flex flex-col gap-x-4">
+                                        <p className="flex text-base font-bold text-black">
+                                            {user.name}
+                                        </p>
+                                        <p className="flex text-xs font-semibold text-black">
+                                            {user.email}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex ml-auto gap-2.5">
-                                <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
-                                    <img
-                                        className="h-4 w-4"
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII="
-                                        alt=""
-                                    />
-                                </button>
-                                <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
-                                    <img
-                                        className="h-4 w-4"
-                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVR4nO2WQQqAMBADh75A/ZR9lUg/XW8VYYUi0pNbUBPIqYeELA2BF2MConHsKRyABGxAMWZgtTd3pEr4ysOEe+xbw0D2PkdsiJ+cP21gtJhbJxhwxtowsNABwUzUSWQT7/IN63NEu7l77HdQExY1IWpC1ISoCaM2IdqEaBOiTVh+uwl5Ajscaq8SiXQEyQAAAABJRU5ErkJggg=="
-                                        alt=""
-                                    />
-                                </button>
-                            </div>
-                        </li>
-                    ))
-                ) : (
-                    <p>Loading data...</p>
-                )}
-                <div className="h-[36.5rem] overflow-y-auto scroll-smooth" ref={messagesContainerRef}>
-                    {dataMessages.map((message) => (
-                        <div key={message._id}>
-                            {chatUserMessages(message.senderId, message)}
-                        </div>
-                    ))}
-                </div>
-            </ul>
-            <div className="relative flex rounded-md">
+                                <div className="flex ml-auto gap-2.5">
+                                    <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                        <img
+                                            className="h-4 w-4"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII="
+                                            alt=""
+                                        />
+                                    </button>
+                                    <button className="rounded-full p-3 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                                        <img
+                                            className="h-4 w-4"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVR4nO2WQQqAMBADh75A/ZR9lUg/XW8VYYUi0pNbUBPIqYeELA2BF2MConHsKRyABGxAMWZgtTd3pEr4ysOEe+xbw0D2PkdsiJ+cP21gtJhbJxhwxtowsNABwUzUSWQT7/IN63NEu7l77HdQExY1IWpC1ISoCaM2IdqEaBOiTVh+uwl5Ajscaq8SiXQEyQAAAABJRU5ErkJggg=="
+                                            alt=""
+                                        />
+                                    </button>
+                                </div>
+                            </li>
+                        ))
+                    ) : (
+                        <p>Loading data...</p>
+                    )}
+                </ul>
+            </div>
+            <div className="overflow-y-auto scroll-smooth" ref={messagesContainerRef}>
+                {dataMessages.map((message) => (
+                    <div key={message._id}>
+                        {chatUserMessages(message.senderId, message)}
+                    </div>
+                ))}
+            </div>
+            <div className="flex relative mt-auto">
                 <input
                     id="body_message"
                     name="body_message"
                     type="text"
                     required
-                    className="min-w-0 flex-auto bg-[#ffff] px-3.5 py-2 m-2.5 text-black ring-inset sm:text-sm sm:leading-6 resize"
+                    className="min-w-0 flex-auto bg-[#ffff] rounded-full px-3.5 py-2 m-2.5 text-black ring-inset sm:text-sm sm:leading-6 resize"
                     placeholder="Escribe un mensaje aquí"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

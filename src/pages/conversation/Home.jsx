@@ -258,75 +258,73 @@ const Home = () => {
     }
 
     return (
-        <div className="h-screen w-screen py-4 bg-[#C8CDD0] flex flex-col">
-            <div className="mx-16 grid grid-cols-1 h-full gap-x-4 gap-y-16 lg:grid-cols-3">
-                <div className="lg:col-span-1 p-4 m-1 h-full rounded-xl bg-[#ffff] flex-1 overflow-auto">
-                    {data ? (
-                        <>
-                            {UserRegisterData(data)}
-                        </>
-                    ) : (
-                        <>
-                        </>
-                    )}
-                    {data ? (
-                        <ul className="mt-1 w-full">
-                            {data.map((person) => (
-                                <li
-                                    key={person._id}
-                                    className={setStyleChat(person._id)}
-                                    onClick={() => openConversation(person._id)}
-                                >
-                                    <div className="flex gap-x-4 w-4/5">
-                                        <img
-                                            className="h-11 w-11 flex-none rounded-full"
-                                            src={GetImage(person)}
-                                            alt=""
-                                        />
-                                        <div className="min-w-0 flex-auto w-full">
-                                            <p className="text-sm font-bold leading-6 text-black ">
-                                                {GetName(person)}
-                                            </p>
-                                            <p className="w-full truncate text-sm leading-5 Roboto text-black">
-                                                {GetFinalMessage(person._id)}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col items-end truncate relative">
-                                        <p className="text-xs text-black">
-                                            <time dateTime={person.lastMessageAt}>
-                                                {formatTime(person.lastMessageAt)}
-                                            </time>
+        <div className=" grid h-screen p-2 bg-[#C8CDD0] grid-cols-1 lg:grid-cols-3">
+            <div className="lg:col-span-1 h-full p-4 m-1 rounded-xl bg-[#aaaa]">
+                {data ? (
+                    <>
+                        {UserRegisterData(data)}
+                    </>
+                ) : (
+                    <>
+                    </>
+                )}
+                {data ? (
+                    <ul className="mt-1 w-full">
+                        {data.map((person) => (
+                            <li
+                                key={person._id}
+                                className={setStyleChat(person._id)}
+                                onClick={() => openConversation(person._id)}
+                            >
+                                <div className="flex gap-x-4 w-4/5">
+                                    <img
+                                        className="h-11 w-11 flex-none rounded-full"
+                                        src={GetImage(person)}
+                                        alt=""
+                                    />
+                                    <div className="min-w-0 flex-auto w-full">
+                                        <p className="text-sm font-bold leading-6 text-black ">
+                                            {GetName(person)}
                                         </p>
-                                        <div
-                                            className="absolute bottom-0 left-0 transform translate-x-[60%] translate-y-[-0%] bg-[#DF6675] rounded-full w-5 h-5">
-                                            <p className="text-white font-bold p-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">1</p>
-                                        </div>
+                                        <p className="w-full truncate text-sm leading-5 Roboto text-black">
+                                            {GetFinalMessage(person._id)}
+                                        </p>
                                     </div>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>Loading data...</p>
-                    )}
-                </div>
-                <div className="lg:col-span-2 h-full p-4 m-1 rounded-xl bg-[#F1F1F1] flex-1 overflow-auto">
-                    {dataMessages ? (
-                        <Chat
-                            dataMessages={dataMessages}
-                            idUser={idUser}
-                            setDataMessages={setDataMessages}
-                            socket={socket}
-                            idConversation={idConversation}
-                            UserChat={UserChat}
-                            formatTime={formatTime}
-                            data={data}
-                        />
-                    ) : (
-                        /* Sin chat abierto*/
-                        <UnsetChat/>
-                    )}
-                </div>
+                                </div>
+                                <div className="flex flex-col items-end truncate relative">
+                                    <p className="text-xs text-black">
+                                        <time dateTime={person.lastMessageAt}>
+                                            {formatTime(person.lastMessageAt)}
+                                        </time>
+                                    </p>
+                                    <div
+                                        className="absolute bottom-0 left-0 transform translate-x-[60%] translate-y-[-0%] bg-[#DF6675] rounded-full w-5 h-5">
+                                        <p className="text-white font-bold p-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">1</p>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Loading data...</p>
+                )}
+            </div>
+            <div className="lg:col-span-2 min-h-full pt-2 px-2 m-1 rounded-xl bg-[#F1F1F1]">
+                {dataMessages ? (
+                    <Chat
+                        dataMessages={dataMessages}
+                        idUser={idUser}
+                        setDataMessages={setDataMessages}
+                        socket={socket}
+                        idConversation={idConversation}
+                        UserChat={UserChat}
+                        formatTime={formatTime}
+                        data={data}
+                    />
+                ) : (
+                    /* Sin chat abierto*/
+                    <UnsetChat/>
+                )}
             </div>
         </div>
     );
