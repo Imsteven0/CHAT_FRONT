@@ -1,29 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import Chat from "./Chat";
 import io from "socket.io-client";
-import {useAuth} from '../../hooks/useAuth'
-import {compareDates} from '../../helpers/compareDates'
 
 import {getConversationByIdUser, getSpecificMessage} from '../../services/conversation'
 import UnsetChat from "../unset/UnsetChat";
 import ModalCustom from "../modales/ModalCustom";
+import {useAuth} from "../../hooks/useAuth";
+import {compareDates} from "../../helpers/compareDates";
 
 const Home = () => {
-    const navigate = useNavigate();
-    const [isReady, setIsReady] = useState(false);
-    const {user, idUser, expiresIn/*, token*/, logout} = useAuth()
-
-    useEffect(() => {
-        if (!compareDates(expiresIn)) {
-            logout();
-        }
-        if (!user) {
-            navigate("/login");
-        }
-        setIsReady(true);
-    }, [expiresIn, logout, user, navigate]);
-
+    const {idUser, expiresIn, logout} = useAuth()
     const [data, setData] = useState([]);
     const [dataMessages, setDataMessages] = useState(null);
     const [idConversation, setIdConversation] = useState(null);
@@ -31,10 +17,11 @@ const Home = () => {
     const [UserChat, setUserChat] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
+    if (!compareDates(expiresIn)) {
+        logout();
+    }
+
     useEffect(() => {
-        if (!isReady) {
-            return; // Evita la ejecución de este useEffect hasta que isReady sea true
-        }
         const fetchData = async () => {
             try {
                 const response = await getConversationByIdUser(idUser);
@@ -50,15 +37,12 @@ const Home = () => {
             }
         };
         fetchData();
-    }, [isReady]);
+    }, []);
 
 
     useEffect(() => {
-        if (!isReady) {
-            return; // Evita la ejecución de este useEffect hasta que isReady sea true
-        }
         handleDataChange(data, idConversation);
-    }, [data, idConversation, isReady]);
+    }, [data, idConversation]);
 
     const handleDataChange = (newData, idConversation) => {
         const conversation = newData.find((item) => item._id === idConversation);
@@ -68,9 +52,6 @@ const Home = () => {
     };
 
     useEffect(() => {
-        if (!isReady) {
-            return; // Evita la ejecución de este useEffect hasta que isReady sea true
-        }
         // Connect to the WebSocket server
         const socket = io("http://localhost:8000", {
             path: "/socket.io",
@@ -90,7 +71,7 @@ const Home = () => {
         return () => {
             socket.disconnect();
         };
-    }, [data, dataMessages, idConversation, isReady]);
+    }, [data, dataMessages, idConversation]);
 
     const fetchNewMessage = async (message) => {
         const result = data.find((item) => item._id === message.conversationId);
@@ -239,10 +220,17 @@ const Home = () => {
                                 alt=""
                             />
                         </button>
-                        <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
+                        {/*<button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]">
                             <img
                                 className="h-4 w-4"
                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII="
+                                alt=""
+                            />
+                        </button>*/}
+                        <button className="rounded-full p-2.5 bg-[#F5F5F5] hover:bg-[#4784DE]" onClick={() => logout()}>
+                            <img
+                                className="h-4 w-4"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAADI0lEQVR4nGNgGAzAzd9f1sDCdo+8ivprcRnZrxIycl/UdQ3uuPkHW1FsuJGV7TYOLq5/rKxs/9V1Df4bWFiDMZ+A4H9hMYmfoaGhbGQb7uwTZsrIyPjf0MLmf+3E2f8nLN8Ex+nl9f8ZGBj+O/kEBZBtgaGVzQ5mFpb/LTMXoxgOwh3zVvwHyRla2uwk2wIRcckf+ubWGIbDsL6Z1X+QGrIMB4UtMzPz/4CYJJwW+EUn/gepISseXHwCbEBhHJ9fhtOCtLK6/6DIz6xp0iTZAjN7pwUgCxqmzMNpAQi3z13+v3/ZhlSSLTC1cVwBSkGts5diGNq/fOPHCcs3TuxfvjFhwoqNoZOWbtIg2QLHgFBjVjb2/zrGZv/7lm5ANvzBhAnzVKMkhJc7CPLetxHgfQyioyVEltTbM7CQZImVs0cPyBfBCelwC/qWbvJ1EeK/zsTI8F+Hh/OTMS/3Wx1uzs+MDAz/g8QF95DsE2VN7ccCwiL/+5dt/N+/bNOfzogkKVZGxv9BYoJ7kdVly4mlFMlJkV50WDq5TgJFdtP0hf8nLNv0oUheyhDET5QSnYCuNldGwqNUSVqVaMP9/eMFDC1td4MMBOdmAhYY8nK9l+Vg+1WsIG6O1UCP6Gg+ULhrGZlekJSV/wIqCkCGgQo5cBygWQCK1HgpkckxkiKLQThQTGgfHwvzP0FWln95MpKBKIY7egUE8QkI/gFpBpWUuiYW/30j4//n1rWDwx+bBcVyksbsTExgR6BjN2H+a3DDfXx8uEBFr7i07P/Sjgm4M9YyzCCql5ERKpaTUwThcHGR9aDU5CTEfwslyTp4+8aDNGVVNePNtRMIxIGdIO9DTxH+ixj5wcrZswOkqW7yHEIWfCqWkdEBl1FSIpOJTi2WLh5dRFmwfNP/nplLRYRZWf6a8XO/ypOX8CpVkLAH0Z7C/BcSpcW6sVpg6+mXAUstsCoRHQfGpUCKimUbK1OkxNo5mVEjl4uZ6X+KlFg9Tl8YWNjsByVNUKWODZvaOb3sX77xTP+yTccnrNhkCgqqFGnRxgQp0b5UadGGIjVJ0gs8agAAgy0SUEHRABwAAAAASUVORK5CYII="
                                 alt=""
                             />
                         </button>
