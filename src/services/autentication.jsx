@@ -12,7 +12,7 @@ export const loginFetch = async (values) => {
 }
 
 /* END-POINT que permite al usuario registrarse en el sistema. */
-export const register = async (values) => {
+export const registerFetch = async (values) => {
     return await fetch(BASEURL + '/Auth/register', {
         method: 'POST',
         headers: {

@@ -1,6 +1,27 @@
 import * as React from "react";
+import {registerFetch} from "../../services/autentication";
+import {useState} from "react";
+import {useAuth} from "../../hooks/useAuth";
 
 export default function RegisterForm() {
+    const [name, setName] = useState("");
+    const [apellido, setApellido] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const {login} = useAuth();
+
+    const register = async () => {
+        if (name !== "" && apellido !== "" && email !== "" && password !== "") {
+            const dataAuth = {name: name + ' ' + apellido, email: email, hashedPassword: password};
+            let response = await registerFetch(dataAuth);
+            console.log(response);
+            if (response.status === 200) {
+                const jsonData = await response.json();
+                login(jsonData.token);
+            }
+        }
+    };
+
     return (
         <div className="flex w-full h-screen">
             <div className="w-full flex items-center justify-center">
@@ -18,6 +39,8 @@ export default function RegisterForm() {
                                 className=" w-full border-2 border-gray-100 rounded-xl p-4 m-t1 bg-transparent"
                                 placeholder="Ingresa tu nombre"
                                 type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
                         <div className="py-2">
@@ -26,6 +49,8 @@ export default function RegisterForm() {
                                 className=" w-full border-2 border-gray-100 rounded-xl p-4 m-t1 bg-transparent"
                                 placeholder="Ingresa tu apellido"
                                 type="text"
+                                value={apellido}
+                                onChange={(e) => setApellido(e.target.value)}
                             />
                         </div>
                         <div className="py-2">
@@ -34,6 +59,8 @@ export default function RegisterForm() {
                                 className=" w-full border-2 border-gray-100 rounded-xl p-4 m-t1 bg-transparent"
                                 placeholder="Ingresa tu correo"
                                 type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className="py'2">
@@ -42,6 +69,8 @@ export default function RegisterForm() {
                                 className=" w-full border-2 border-gray-100 rounded-xl p-4 m-t1 bg-transparent"
                                 placeholder="Ingresa tu contraseña"
                                 type="text"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div className="flex justify-end py-1">
@@ -49,10 +78,11 @@ export default function RegisterForm() {
                         </div>
                         <div className="mt-6 flex flex-col gap-2">
                             <button
-                                className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 bg-violet-500 text-white text-sm font-bold rounded-xl">
+                                className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 bg-violet-500 text-white text-sm font-bold rounded-xl"
+                                onClick={() => register()}>
                                 Crear Cuenta
                             </button>
-                            <button
+                            {/*<button
                                 className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out flex py-3 items-center justify-center gap-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +108,7 @@ export default function RegisterForm() {
                                     />
                                 </svg>
                                 Registrate con Google
-                            </button>
+                            </button>*/}
                         </div>
                     </div>
                 </div>
