@@ -19,7 +19,7 @@ const UnsetChat = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center'>
+            <div className='flex justify-center pb-2'>
                 <div className="flex items-center">
                     <img
                         className="h-4 w-4 rounded-full"

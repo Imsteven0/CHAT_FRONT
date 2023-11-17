@@ -1,25 +1,25 @@
 import React, {useState} from "react";
-import {useAuth} from '../../hooks/useAuth'
-import {Navigate} from "react-router-dom";
-import {loginFetch} from '../../services/autentication'
+import {useAuth} from "../../hooks/useAuth";
+import {loginFetch} from "../../services/autentication";
 
 export default function LoginForm() {
-    const {user, login} = useAuth()
-    const [email, setEmail] = useState('');
-    const [password, SetPassword] = useState('');
-
-    if (user) return <Navigate to="/"/>
+    const {login} = useAuth();
+    const [email, setEmail] = useState("");
+    const [password, SetPassword] = useState("");
 
     const sendToLogin = async () => {
-        if (email !== '' && password !== '') {
-            const dataAuth = {email: email, hashedPassword: password}
-            let response = await loginFetch(dataAuth)
+        if (email !== "" && password !== "") {
+            const dataAuth = {email: email, hashedPassword: password};
+            let response = await loginFetch(dataAuth);
             if (response.status === 200) {
                 const jsonData = await response.json();
-                login(jsonData.token)
+                login(jsonData.token);
+            } else if (response.status === 401) {
+                alert("Usuario o contraseña incorrecta");
+                SetPassword("");
             }
         }
-    }
+    };
 
     return (
         <>
@@ -39,7 +39,10 @@ export default function LoginForm() {
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <div className="space-y-6">
                             <div className="space-y-6">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label
+                                    htmlFor="email"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
                                     Correo eletronico
                                 </label>
                                 <div className="mt-2">
@@ -57,12 +60,17 @@ export default function LoginForm() {
 
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="password"
-                                           className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label
+                                        htmlFor="password"
+                                        className="block text-sm font-medium leading-6 text-gray-900"
+                                    >
                                         Contraseña
                                     </label>
                                     <div className="text-sm">
-                                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                        <a
+                                            href="#"
+                                            className="font-semibold text-indigo-600 hover:text-indigo-500"
+                                        >
                                             Olvidaste tu contraseña?
                                         </a>
                                     </div>
@@ -91,7 +99,7 @@ export default function LoginForm() {
                         </div>
 
                         <p className="mt-10 text-center text-sm text-gray-500">
-                            No estas resgistrado?{' '}
+                            No estas resgistrado?{" "}
                             <a className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                                 Registrate ahora!
                             </a>
