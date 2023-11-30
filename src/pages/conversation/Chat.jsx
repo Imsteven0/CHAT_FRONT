@@ -8,6 +8,7 @@ const Chat = ({
                   UserChat,
                   formatTime,
                   data,
+                  setIsOpen
               }) => {
     const [message, setMessage] = useState("");
     const {idUser} = useAuth();
@@ -126,7 +127,15 @@ const Chat = ({
                                 key={user._id}
                                 className="flex justify-between gap-x-4 p-2 mb-2 rounded-md bg-[#ffff]"
                             >
-                                <div className="flex gap-x-4">
+                                <div className="flex gap-x-1">
+                                    <button className="rounded-full p-3 hover:bg-[#4784DE] md:hidden"
+                                            onClick={() => setIsOpen(false)}>
+                                        <img
+                                            className="h-4 w-4"
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjUlEQVR4nO3VMQrCQBRF0dOEBLOYWKTWZbkCQZeQ5VgoNsYNuBKNKMI0iqDFjDCSW05x/3t8+MPID2jRYxtbXGKJC27Yx5Q3OAbxFR3qGOICC5yD/IS5HFPPRGL6JvUkhrjCCkOK1A92QTxgHQbKakCRcrGfllzLtU3zd2361G3KlOf69cM5YPP0OuJL7gB0O++J7QyyAAAAAElFTkSuQmCC"
+                                            alt=""
+                                        />
+                                    </button>
                                     <img
                                         className="h-10 w-10 rounded-full"
                                         src={user.image}

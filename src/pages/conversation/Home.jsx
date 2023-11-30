@@ -12,6 +12,7 @@ const Home = () => {
     const [dataMessages, setDataMessages] = useState(null);
     const [idConversation, setIdConversation] = useState(null);
     const [UserChat, setUserChat] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     const socket = useSocket();
 
@@ -64,6 +65,7 @@ const Home = () => {
     };
 
     const openConversation = (IdConversation) => {
+        setIsOpen(true);
         // Se activan los estilos para el chat activo.
         setActiveChatStyle(IdConversation);
         // Se setea id el de la conversacio global.
@@ -133,7 +135,7 @@ const Home = () => {
 
     return (
         <div className=" grid h-screen p-2 bg-[#C8CDD0] grid-cols-1 lg:grid-cols-3">
-            <div className="lg:col-span-1 h-full p-4 m-1 rounded-xl bg-[#aaaa]">
+            <div className={`${isOpen ? 'hidden lg:block' : 'block'} lg:col-span-1 h-full p-4 m-1 rounded-xl bg-[#aaaa]`}>
                 <HeaderChat/>
                 {data && data.length > 0 ? (
                     <ul className="mt-1 w-full">
@@ -178,7 +180,8 @@ const Home = () => {
                     <h2 className="text-black text-center pt-2">No cuentas con ningun chat disponible</h2>
                 )}
             </div>
-            <div className="lg:col-span-2 min-h-full pt-2 px-2 m-1 rounded-xl bg-[#F1F1F1]">
+            <div
+                className={`${isOpen ? 'block' : 'hidden'} lg:col-span-2 min-h-full pt-2 px-2 m-1 rounded-xl bg-[#F1F1F1]`}>
                 {dataMessages ? (
                     <Chat
                         dataMessages={dataMessages}
@@ -188,9 +191,9 @@ const Home = () => {
                         UserChat={UserChat}
                         formatTime={formatTime}
                         data={data}
+                        setIsOpen={setIsOpen}
                     />
                 ) : (
-                    /* Sin chat abierto*/
                     <UnsetChat/>
                 )}
             </div>
