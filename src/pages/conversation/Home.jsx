@@ -23,6 +23,7 @@ const Home = () => {
         socket.emit("userConnect", {idUser: idUser});
 
         socket.on("userChats", async (data) => {
+            console.log("userChats", data)
             setData(data);
         });
 

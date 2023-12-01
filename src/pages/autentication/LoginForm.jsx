@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useAuth} from "../../hooks/useAuth";
 import {loginFetch} from "../../services/autentication";
-import {redirect} from "react-router-dom";
 
 export default function LoginForm() {
     const {login} = useAuth();
@@ -9,16 +8,21 @@ export default function LoginForm() {
     const [password, SetPassword] = useState("");
 
     const sendToLogin = async () => {
-        if (email !== "" && password !== "") {
-            const dataAuth = {email: email, hashedPassword: password};
-            let response = await loginFetch(dataAuth);
-            if (response.status === 200) {
-                const jsonData = await response.json();
-                login(jsonData.token);
-            } else if (response.status === 401) {
-                alert("Usuario o contraseña incorrecta");
-                SetPassword("");
+        try {
+            if (email !== "" && password !== "") {
+                const dataAuth = {email: email, hashedPassword: password};
+                let response = await loginFetch(dataAuth);
+                if (response.status === 200) {
+                    const jsonData = response.data;
+                    login(jsonData.token);
+                } else if (response.status === 401 || response.status === 400) {
+                    SetPassword("");
+                    alert("Usuario o contraseña incorrecta");
+                }
             }
+        } catch (error) {
+            console.error('Error en la autenticación:', error);
+            alert(error);
         }
     };
 

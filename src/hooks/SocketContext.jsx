@@ -7,10 +7,9 @@ export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:8000'); // Reemplaza con la URL de tu servidor Socket.io
+        const newSocket = io('http://localhost:8000');
         setSocket(newSocket);
-
-        return () => newSocket.disconnect(); // Desconectar el socket al desmontar el componente
+        return () => newSocket.disconnect();
     }, []);
 
     return (
